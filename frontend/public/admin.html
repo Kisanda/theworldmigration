@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel — The Migration Firm</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/admin.css" />
+</head>
+<body>
+
+<!-- ── LOGIN SCREEN ── -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="login-logo-icon">🛂</div>
+      <div><h1>Migration Firm</h1><span>Admin Portal</span></div>
+    </div>
+    <h2>Welcome back</h2>
+    <p>Enter your admin key to access the dashboard.</p>
+    <div class="field">
+      <label for="apiKeyInput">Admin API Key</label>
+      <input type="password" id="apiKeyInput" placeholder="Enter your admin key…" autocomplete="current-password" />
+    </div>
+    <button class="login-btn" data-click="action0">Sign in →</button>
+    <div class="login-error" id="loginError">Incorrect admin key. Please try again.</div>
+  </div>
+</div>
+
+<!-- ── DASHBOARD ── -->
+<div id="dashboard">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <div class="sidebar-logo-icon">🛂</div>
+        <div><h2>Migration Firm</h2><span>Admin Panel</span></div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <button class="nav-item active" id="navSubmissions" data-click="action1">
+        <span class="nav-icon">📋</span> Submissions
+      </button>
+      <button class="nav-item" id="navReviews" data-click="action2">
+        <span class="nav-icon">⭐</span> Reviews
+        <span class="nav-badge" id="pendingBadge" style="display:none"></span>
+      </button>
+      <button class="nav-item" id="navSiteLinks" data-click="action24">
+        <span class="nav-icon">🔗</span> Site Links
+      </button>
+      <a class="nav-item" href="/edit"><span class="nav-icon" aria-hidden="true">✎</span> Website editor ↗</a>
+      <button class="nav-item" data-click="action3">
+        <span class="nav-icon">🌐</span> View Site
+      </button>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="logout-btn" data-click="action4"><span>🚪</span> Sign out</button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+
+
+    <!-- ── SUBMISSIONS TAB ── -->
+    <div class="tab-view active" id="tabSubmissions">
+      <div class="topbar">
+        <div>
+          <h1>Submissions</h1>
+          <p style="color:var(--muted);font-size:0.85rem;margin-top:4px;">Contact form leads from the website — browse all pages</p>
+        </div>
+        <div class="topbar-right">
+          <div class="badge-live">Backend connected</div>
+          <button class="refresh-btn" data-click="action5">↻ Refresh</button>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card blue"><div class="stat-label">Total Leads</div><div class="stat-value" id="statTotal">—</div><div class="stat-sub">All time submissions</div></div>
+        <div class="stat-card red"><div class="stat-label">Canada PR</div><div class="stat-value" id="statCanada">—</div><div class="stat-sub">Express Entry &amp; PNP</div></div>
+        <div class="stat-card green"><div class="stat-label">Australia PR</div><div class="stat-value" id="statAustralia">—</div><div class="stat-sub">Subclass 189 / 190 / 491</div></div>
+        <div class="stat-card amber"><div class="stat-label">Not Sure</div><div class="stat-value" id="statNotSure">—</div><div class="stat-sub">Needs assessment</div></div>
+      </div>
+
+      <div class="table-card">
+        <div class="table-header">
+          <h3>All Leads</h3>
+          <div class="table-controls">
+            <input class="search-input" id="searchInput" placeholder="🔍  Search name, email…" data-input="action6" />
+            <select class="filter-select" id="filterSelect" data-change="action7">
+              <option value="">All pathways</option>
+              <option value="canada-pr">Canada PR</option>
+              <option value="australia-pr">Australia PR</option>
+              <option value="pnp-state">Provincial / State</option>
+              <option value="not-sure">Not Sure</option>
+            </select>
+          </div>
+        </div>
+        <div class="table-header"><span>Stats, search and bulk actions apply to this page (up to 50 records).</span><button class="refresh-btn" id="submissionsPrev" disabled>Previous</button><button class="refresh-btn" id="submissionsNext" disabled>Next</button></div><div id="tableWrap"><div class="table-empty"><div class="icon">⏳</div><p>Loading submissions…</p></div></div>
+      </div>
+    </div>
+
+    <!-- ── REVIEWS TAB ── -->
+    <div class="tab-view" id="tabReviews">
+      <div class="topbar">
+        <div>
+          <h1>Client Reviews</h1>
+          <p style="color:var(--muted);font-size:0.85rem;margin-top:4px;">Moderate, approve, or remove public reviews</p>
+        </div>
+        <div class="topbar-right">
+          <div class="badge-live">Backend connected</div>
+          <button class="refresh-btn" data-click="action8">↻ Refresh</button>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card blue"><div class="stat-label">Total Reviews</div><div class="stat-value" id="rStatTotal">—</div><div class="stat-sub">All submitted</div></div>
+        <div class="stat-card green"><div class="stat-label">Published</div><div class="stat-value" id="rStatPublished">—</div><div class="stat-sub">Visible on website</div></div>
+        <div class="stat-card amber"><div class="stat-label">Hidden</div><div class="stat-value" id="rStatHidden">—</div><div class="stat-sub">Pending review</div></div>
+        <div class="stat-card purple"><div class="stat-label">Avg Rating</div><div class="stat-value" id="rStatAvg">—</div><div class="stat-sub">Out of 5 stars</div></div>
+      </div>
+
+      <div class="table-card">
+        <div class="table-header">
+          <h3>All Reviews</h3>
+          <div class="table-controls">
+            <button class="btn-action btn-publish" id="publishAllBtn" data-click="action9" style="display:none">✓ Publish Page (<span id="pendingCount">0</span>)</button>
+            <input class="search-input" id="reviewSearch" placeholder="🔍  Search name or review…" data-input="action10" />
+            <select class="filter-select" id="reviewFilter" data-change="action11">
+              <option value="">All Reviews</option>
+              <option value="pending">⏳ Pending Approval</option>
+              <option value="approved">✓ Published</option>
+            </select>
+          </div>
+        </div>
+        <div class="table-header"><span>Stats, search and bulk actions apply to this page (up to 50 records).</span><button class="refresh-btn" id="reviewsPrev" disabled>Previous</button><button class="refresh-btn" id="reviewsNext" disabled>Next</button></div><div id="reviewsWrap"><div class="table-empty"><div class="icon">⏳</div><p>Loading reviews…</p></div></div>
+      </div>
+    </div>
+
+    <!-- ── SITE LINKS TAB ── -->
+    <div class="tab-view" id="tabSiteLinks">
+      <div class="topbar">
+        <div>
+          <h1>Site Links</h1>
+          <p style="color:var(--muted);font-size:0.85rem;margin-top:4px;">Manage social media profiles and footer quick links</p>
+        </div>
+        <div class="topbar-right">
+          <div class="badge-live">Backend connected</div>
+        </div>
+      </div>
+
+      <div class="table-card" style="max-width:700px">
+        <div class="table-header"><h3>🌐 Social Media Links</h3></div>
+        <div style="padding:1.5rem 1.5rem 0.5rem;display:flex;flex-direction:column;gap:1rem;">
+          <div class="field"><label for="sl_facebook">Facebook URL</label><input type="url" id="sl_facebook" placeholder="https://facebook.com/yourpage" /></div>
+          <div class="field"><label for="sl_linkedin">LinkedIn URL</label><input type="url" id="sl_linkedin" placeholder="https://linkedin.com/company/yourcompany" /></div>
+          <div class="field"><label for="sl_instagram">Instagram URL</label><input type="url" id="sl_instagram" placeholder="https://instagram.com/yourhandle" /></div>
+          <div class="field"><label for="sl_youtube">YouTube URL</label><input type="url" id="sl_youtube" placeholder="https://youtube.com/@yourchannel" /></div>
+          <div class="field"><label for="sl_x">X (Twitter) URL</label><input type="url" id="sl_x" placeholder="https://x.com/yourhandle" /></div>
+          <div class="field"><label for="sl_whatsapp">WhatsApp Link</label><input type="url" id="sl_whatsapp" placeholder="https://wa.me/94771234567" /></div>
+        </div>
+        <div style="padding:0 1.5rem 1.5rem;">
+          <button class="btn-action btn-publish" id="saveSocialBtn" data-click="action25" style="padding:0.6rem 1.4rem;font-size:0.9rem;">💾 Save Social Links</button>
+        </div>
+      </div>
+
+      <div class="table-card" style="max-width:700px;margin-top:1.5rem">
+        <div class="table-header"><h3>🔗 Footer Quick Links</h3></div>
+        <div style="padding:1.5rem 1.5rem 0.5rem;display:flex;flex-direction:column;gap:1rem;">
+          <div class="field"><label for="ql_whatsapp_label">WhatsApp Button Label</label><input type="text" id="ql_whatsapp_label" placeholder="Call On WhatsApp" /></div>
+          <div class="field"><label for="ql_whatsapp_url">WhatsApp URL</label><input type="url" id="ql_whatsapp_url" placeholder="https://wa.me/94771234567" /></div>
+          <div class="field"><label for="ql_virtual_office">Virtual Office URL</label><input type="url" id="ql_virtual_office" placeholder="https://meet.google.com/…" /></div>
+          <div class="field"><label for="ql_privacy_url">Privacy Policy URL</label><input type="url" id="ql_privacy_url" placeholder="https://yoursite.com/privacy" /></div>
+          <div class="field"><label for="ql_terms_url">Terms of Service URL</label><input type="url" id="ql_terms_url" placeholder="https://yoursite.com/terms" /></div>
+          <div class="field"><label for="ql_disclaimer_url">Disclaimer URL</label><input type="url" id="ql_disclaimer_url" placeholder="https://yoursite.com/disclaimer" /></div>
+        </div>
+        <div style="padding:0 1.5rem 1.5rem;">
+          <button class="btn-action btn-publish" id="saveQuickLinksBtn" data-click="action26" style="padding:0.6rem 1.4rem;font-size:0.9rem;">💾 Save Quick Links</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Detail Modal (shared) -->
+<div class="modal-overlay" id="modalOverlay" data-click="action12">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <h3 id="modalName">Detail</h3>
+      <button class="modal-close" data-click="action13">✕</button>
+    </div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script src="/admin.js" defer></script>
+
+</body>
+</html>
