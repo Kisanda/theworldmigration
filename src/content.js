@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import schema from '../../content-schema.json';
+import schema from './content-schema.json';
 export { schema };
 export const defaults = Object.fromEntries(Object.values(schema).flatMap(section => section.fields.map(field => [field.key, field.default])));
 export const ContentContext = createContext(defaults);
